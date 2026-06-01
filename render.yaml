@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: wedding-faq-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn faq_bot:app
+    envVars:
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false

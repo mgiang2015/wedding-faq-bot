@@ -10,6 +10,8 @@ from twilio.twiml.messaging_response import MessagingResponse
 app = Flask(__name__)
 
 # ── Twilio credentials ────────────────────────────────────────
+# Set these in PythonAnywhere:
+#   Dashboard → Web → your app → Environment variables section
 ACCOUNT_SID  = os.environ.get("TWILIO_ACCOUNT_SID")
 AUTH_TOKEN   = os.environ.get("TWILIO_AUTH_TOKEN")
 # ─────────────────────────────────────────────────────────────
@@ -59,4 +61,5 @@ def webhook():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

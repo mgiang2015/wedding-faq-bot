@@ -23,7 +23,7 @@ AUTH_TOKEN   = os.environ.get("TWILIO_AUTH_TOKEN")
 # Add as many keywords as needed per reply.
 FAQS = [
     (
-        ["venue"],
+        ["venue", "location"],
         "The wedding venue is at Fullerton Bay Hotel, "
         "80 Collyer Quay, Singapore 049326. "
         "If you're coming by car, please remember to ask for parking validation. "
@@ -31,7 +31,17 @@ FAQS = [
     ),
     (
         ["solemnisation", "nikah", "nikkah"],
-        "Solemnisation details go here."              # ← replace with your actual reply
+        "If you are attending the solemnisation, please be seated by 9:30 am"             
+    ),
+    (
+        ["dress", "code", "dresscode", "color", "scheme"],
+        "Pastel-palette traditional Malay attire (or your own traditional attire). "
+        "Please avoid shades of green and peach, as these are reserved for immediate family only."             
+    ),
+    (
+        ["time", "program"],
+        "Kindly arrive at The Clifford Pier by 10:50 am to register and enjoy the cocktail hour. "
+        "The lunch reception will start promptly at 11:25 am"              
     ),
 ]
 

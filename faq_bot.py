@@ -45,12 +45,6 @@ FAQS = [
     ),
 ]
 
-# ── Fallback reply (no FAQ matched) ──────────────────────────
-FALLBACK = (
-    "Sorry, we didn't quite catch that! "
-    "For further assistance, please approach our registration table "
-    "or contact the wedding coordinators directly."
-)
 # ─────────────────────────────────────────────────────────────
 
 

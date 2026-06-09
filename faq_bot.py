@@ -54,13 +54,14 @@ def webhook():
     response = MessagingResponse()
 
     # Match against FAQ keywords
-    reply = FALLBACK
+    reply = ""
     for keywords, answer in FAQS:
         if any(keyword in incoming for keyword in keywords):
             reply = answer
             break
 
-    response.message(reply)
+    if len(reply) > 0:
+        response.message(reply)
     return str(response)
 
 

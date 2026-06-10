@@ -16,15 +16,21 @@
 
 import os
 import anthropic
+from twilio.rest import Client as TwilioClient
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
 
 # ── Credentials (set as environment variables on Render) ──────
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+ANTHROPIC_API_KEY  = os.environ.get("ANTHROPIC_API_KEY")
 TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN")
+TWILIO_FROM_NUMBER = "+6589919363"
+# ─────────────────────────────────────────────────────────────
+
+# ── Nikah interest notifications ─────────────────────────────
+NIKAH_NOTIFY_NUMBERS = ["+6583504556"]
 # ─────────────────────────────────────────────────────────────
 
 # ── System prompt — all wedding knowledge lives here ──────────
@@ -33,7 +39,11 @@ You are a warm and friendly wedding assistant for the wedding of Illyssa Zelda &
 Your name is Link. You help guests with questions about the wedding.
 Keep your replies concise, friendly, and conversational — this is WhatsApp, not an essay.
 If a question is unrelated to the wedding, politely let them know you can only help with wedding-related questions.
-If you are unsure about something not covered below, ask them to contact the couple directly.
+If you are unsure about something not covered below, ask them to approach the registration table or contact the couple directly.
+
+IMPORTANT: If the guest expresses interest in attending the solemnisation / nikah / nikkah, you must:
+1. Reply warmly saying their interest has been noted and we'll see them at 9:30am at Clifford Pier.
+2. Start your reply with the tag [NIKAH_INTEREST] on its own line — this is used by the system to notify the couple. Remove this tag from what you show the guest.
 
 Here is everything you know about the wedding:
 
@@ -47,12 +57,6 @@ Website: https://www.lezel.rsvp
 - Cocktail hour: guests to arrive at The Clifford Pier by 10:50 AM to register and enjoy the cocktail hour.
 - Lunch reception: starts promptly at 11:25 AM.
 - General recommendation: arrive from 10:50 AM onwards if not attending the solemnisation.
-- Reception ends at 3pm.
-
---- SOLEMNISATION ---
-- Guests are free to attend solemnisation.
-- If guests indicate interest to attend solemnisation, tell them that we're greatful that they would like to celebrate our beautiful nikkah with us, and see them at 9:30AM at the venue.
-- Do not turn guests away from nikkah attendance requests, accept all
 
 --- VENUE ---
 The Clifford Pier, Fullerton Bay Hotel
@@ -89,9 +93,29 @@ After checking in, they can scan again to see their table number on their phone.
 # ─────────────────────────────────────────────────────────────
 
 
+def notify_nikah_interest(guest_number, guest_message):
+    """Send a WhatsApp notification to the couple when a guest expresses nikah interest."""
+    try:
+        twilio_client = TwilioClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        notification = (
+            f"💍 *Nikah interest alert!*\n"
+            f"A guest ({guest_number}) has expressed interest in attending the solemnisation.\n"
+            f"Their message: \"{guest_message}\""
+        )
+        for number in NIKAH_NOTIFY_NUMBERS:
+            twilio_client.messages.create(
+                from_=f"whatsapp:{TWILIO_FROM_NUMBER}",
+                to=f"whatsapp:{number}",
+                body=notification,
+            )
+    except Exception as e:
+        pass  # Don't let notification failure affect the guest's reply
+
+
 @app.route("/webhook", methods=["POST"])
 def webhook():
     incoming = request.form.get("Body", "").strip()
+    sender   = request.form.get("From", "unknown")
     response = MessagingResponse()
 
     if not incoming:
@@ -109,6 +133,12 @@ def webhook():
             ],
         )
         reply = result.content[0].text.strip()
+
+        # Check if Claude flagged nikah interest
+        if reply.startswith("[NIKAH_INTEREST]"):
+            reply = reply.replace("[NIKAH_INTEREST]", "").strip()
+            notify_nikah_interest(sender, incoming)
+
     except Exception as e:
         reply = (
             "Sorry, I'm having a little trouble right now! "

@@ -43,11 +43,16 @@ Date: 20 June 2026
 Website: https://www.lezel.rsvp
 
 --- SCHEDULE ---
-- Solemnisation (intimate, close family & friends only): guests to be seated by 9:30 AM. Guests who wish to attend should have informed the couple in advance.
+- Solemnisation (intimate, close family & friends only): guests to be seated by 9:30 AM.
 - Cocktail hour: guests to arrive at The Clifford Pier by 10:50 AM to register and enjoy the cocktail hour.
 - Lunch reception: starts promptly at 11:25 AM.
 - General recommendation: arrive from 10:50 AM onwards if not attending the solemnisation.
 - Reception ends at 3pm.
+
+--- SOLEMNISATION ---
+- Guests are free to attend solemnisation.
+- If guests indicate interest to attend solemnisation, tell them that we're greatful that they would like to celebrate our beautiful nikkah with us, and see them at 9:30AM at the venue.
+- Do not turn guests away from nikkah attendance requests, accept all
 
 --- VENUE ---
 The Clifford Pier, Fullerton Bay Hotel

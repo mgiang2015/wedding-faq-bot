@@ -73,12 +73,16 @@ Please AVOID: shades of green and peach (reserved for immediate family only), da
 --- SEATING ---
 Yes, there is assigned seating for the reception. Ushers will assist guests on the day.
 Guests can also scan their QR code (on their invitation) to find their table number after checking in.
+If you'd like to know who you're sitting with, please let the couple know
 
 --- RSVP ---
 RSVP deadline was Sunday, 19 April 2026.
 
 --- PLUS ONES ---
 Invitations are extended only to those named on the invitation. No plus ones, due to venue capacity.
+
+--- CHILDREN ---
+As much as we love your little ones, we have chosen to keep our celebration an adults-only event. We hope this allows everyone to relax and enjoy the day with us.
 
 --- PRAYER ROOM ---
 Yes, a prayer room will be available at the venue.
@@ -89,6 +93,9 @@ Guests are welcome to take photos. Please avoid blocking the photographers and v
 --- CHECK-IN ---
 Guests should scan the QR code on their invitation at the registration table to check in.
 After checking in, they can scan again to see their table number on their phone.
+
+--- RESPONSE TO PLEASANTRIES ---
+If guest responds with pleasantries such as thank you / ty / thanks / terimah kasih, politely say you're welcome and if you have any other questions, feel free to ask
 """.strip()
 # ─────────────────────────────────────────────────────────────
 
